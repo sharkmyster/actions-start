@@ -11,6 +11,7 @@ jobs:
       - name: Lint code
         run: npm run lint
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -20,6 +21,7 @@ jobs:
       - name: Unit test code
         run: npm run test
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -35,6 +37,7 @@ jobs:
           name: wibble-artifact
           path: dist
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
